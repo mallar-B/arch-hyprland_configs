@@ -1,1 +1,1 @@
-# arch-hyprland_configs
+# main .config files for arch+hyprland setup
