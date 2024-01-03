@@ -10,4 +10,5 @@
   2. ```sudo cp -r arch-hyprland_configs/Thunar .config/```
   3. ```sudo cp -r arch-hyprland_configs/hypr .config/```
 
-## Also to install packages from AUR, install yay through: `bash yay_install.sh` 
+## Also to install packages from AUR, install yay through: 
+  `bash arch-hyprland_configs/yay_install.sh` 
