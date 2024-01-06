@@ -1,9 +1,9 @@
 # main '.config' files for arch+hyprland setup
 **At first add** `xrandr -s 1920x1080` **to** `/usr/share/sddm/scripts/Xsetup`**then**,
 
-**If you haven't already installed alacritty and Thunar use:**
+**If you haven't already installed Thunar use:**
 
-  ```sudo pacman -S alacritty thunar```
+  ```sudo pacman -S thunar```
   
 **Then just clone the repo and copy the folders**
   1. ```git clone https://github.com/mallar-B/arch-hyprland_configs```
