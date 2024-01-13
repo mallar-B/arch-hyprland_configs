@@ -147,10 +147,25 @@ apply_ags() {
     ags run-js "App.resetCss(); App.applyCss('${HOME}/.config/ags/style.css');"
 }
 
+# update_qt5ct_config() {
+#     config_file="/home/mallarb/.config/qt5ct/colors/custom1_new.conf"
+    
+#     # Check if the config file exists, create it if not
+#     [ -e "$config_file" ] || touch "$config_file"
+    
+#     # Update color settings
+#     for i in "${!colorlist[@]}"; do
+#         ssed -i "s/${colorlist[$i]} #/${colorvalues[$i]#\#}/g" "$config_file"
+#     done
+
+#     mv "/home/mallarb/.config/qt5ct/colors/custom1_new.conf" /home/mallarb/.config/qt5ct/colors/custom1.conf
+# }
+
 # apply_svgs
 apply_ags &
 apply_hyprland &
 apply_gtk &
 apply_gtklock &
 apply_fuzzel &
-apply_foot
+apply_foot &
+# update_qt5ct_config

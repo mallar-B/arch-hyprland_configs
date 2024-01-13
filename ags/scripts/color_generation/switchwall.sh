@@ -6,7 +6,7 @@ if [ "$1" == "--noswitch" ]; then
     imgpath=$(swww query | awk -F 'image: ' '{print $2}')
 else
     # Select and set image (hyprland)
-    cd "$HOME/Pictures"
+    cd "$HOME/Pictures/Wallpapers"
     imgpath=$(yad --width 1200 --height 800 --file --title='Choose wallpaper')
     screensizey=$(xrandr --current | grep '*' | uniq | awk '{print $1}' | cut -d 'x' -f2 | head -1)
     cursorposx=$(hyprctl cursorpos -j | gojq '.x')
@@ -26,4 +26,4 @@ else
 fi
 
 # Generate colors for ags n stuff
-"$HOME"/.config/ags/scripts/color_generation/colorgen.sh "${imgpath}" --apply
+"$HOME"/Scripts/change_wallpaper.sh "${imgpath}" 

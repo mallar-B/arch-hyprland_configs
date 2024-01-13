@@ -59,7 +59,7 @@ export default () => {
     // lock, logout, sleep
     const lockButton = SessionButton('Lock', 'lock', () => { App.closeWindow('session'); execAsync('gtklock') });
     const logoutButton = SessionButton('Logout', 'logout', () => { App.closeWindow('session'); execAsync(['bash', '-c', 'loginctl terminate-user $USER']) });
-    const sleepButton = SessionButton('Sleep', 'sleep', () => { App.closeWindow('session'); execAsync('systemctl suspend') });
+    const sleepButton = SessionButton('Sleep', 'sleep', () => { App.closeWindow('session'); execAsync('bash/home/mallarb/Scripts/sleep_lock.sh') });
     // hibernate, shutdown, reboot
     const hibernateButton = SessionButton('Hibernate', 'downloading', () => { App.closeWindow('session'); execAsync('systemctl hibernate') });
     const shutdownButton = SessionButton('Shutdown', 'power_settings_new', () => { App.closeWindow('session'); execAsync('systemctl poweroff') });
