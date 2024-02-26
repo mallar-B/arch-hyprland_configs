@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # check if no arguments
 if [ $# -eq 0 ]; then
@@ -8,53 +8,51 @@ fi
 
 # check if the file ~/.cache/ags/user/colormode.txt exists. if not, create it. else, read it to $lightdark
 lightdark=""
-if [ ! -f "/home/mallarb/.cache/ags/user/colormode.txt" ]; then
-    echo "" > "/home/mallarb/.cache/ags/user/colormode.txt"
-else 
-    lightdark=$(cat "/home/mallarb/.cache/ags/user/colormode.txt") # either "" or "-l"
+if [ ! -f "$HOME/.cache/ags/user/colormode.txt" ]; then
+    echo "" > "$HOME/.cache/ags/user/colormode.txt"
+else
+    lightdark=$(cat "$HOME/.cache/ags/user/colormode.txt") # either "" or "-l"
 fi
-# check if the file ~/.cache/ags/user/colorbackend.txt exists. if not, create it. else, read it to $lightdark
-backend="material"
-if [ ! -f "/home/mallarb/.cache/ags/user/colorbackend.txt" ]; then
-    echo "material" > "/home/mallarb/.cache/ags/user/colorbackend.txt"
-else 
-    backend=$(cat "/home/mallarb/.cache/ags/user/colorbackend.txt") # either "" or "-l"
+backend="material" # color generator backend
+if [ ! -f "$HOME/.cache/ags/user/colorbackend.txt" ]; then
+    echo "material" > "$HOME/.cache/ags/user/colorbackend.txt"
+else
+    backend=$(cat "$HOME/.cache/ags/user/colorbackend.txt") # either "" or "-l"
 fi
 
-cd "/home/mallarb/.config/ags/scripts/" || exit
+cd "$HOME/.config/ags/scripts/" || exit
 if [[ "$1" = "#"* ]]; then # this is a color
-    color_generation/generate_colors_material.py --color "$1" "$lightdark" > /home/mallarb/.cache/ags/user/generated_colors.txt
+    color_generation/generate_colors_material.py --color "$1" "$lightdark" > "$HOME"/.cache/ags/user/generated/material_colors.scss
     if [ "$2" = "--apply" ]; then
-        cp /home/mallarb/.cache/ags/user/generated_colors.txt "/home/mallarb/.config/ags/scss/_material.scss"
+        cp "$HOME"/.cache/ags/user/generated/material_colors.scss "$HOME/.config/ags/scss/_material.scss"
         color_generation/applycolor.sh
     fi
 elif [ "$backend" = "material" ]; then
-    color_generation/generate_colors_material.py --path "$1" "$lightdark" > /home/mallarb/.cache/ags/user/generated_colors.txt
+    color_generation/generate_colors_material.py --path "$1" "$lightdark" > "$HOME"/.cache/ags/user/generated/material_colors.scss
     if [ "$2" = "--apply" ]; then
-        cp /home/mallarb/.cache/ags/user/generated_colors.txt "/home/mallarb/.config/ags/scss/_material.scss"
+        cp "$HOME"/.cache/ags/user/generated/material_colors.scss "$HOME/.config/ags/scss/_material.scss"
         color_generation/applycolor.sh
     fi
 elif [ "$backend" = "pywal" ]; then
     # clear and generate
     wal -c
-    echo wal -i "$1" -n -t -s -e "$lightdark" -q 
-    wal -i "$1" -n -t -s -e $lightdark -q 
+    wal -i "$1" -n $lightdark -q
     # copy scss
-    cp "/home/mallarb/.cache/wal/colors.scss" /home/mallarb/.cache/ags/user/generated_colors.txt
-    
-    cat color_generation/pywal_to_material.scss >> /home/mallarb/.cache/ags/user/generated_colors.txt
+    cp "$HOME/.cache/wal/colors.scss" "$HOME"/.cache/ags/user/generated/material_colors.scss
+
+    cat color_generation/pywal_to_material.scss >> "$HOME"/.cache/ags/user/generated/material_colors.scss
     if [ "$2" = "--apply" ]; then
-        sassc /home/mallarb/.cache/ags/user/generated_colors.txt /home/mallarb/.cache/ags/user/generated_colors_classes.scss --style compact
-        sed -i "s/ { color//g" /home/mallarb/.cache/ags/user/generated_colors_classes.scss
-        sed -i "s/\./$/g" /home/mallarb/.cache/ags/user/generated_colors_classes.scss
-        sed -i "s/}//g" /home/mallarb/.cache/ags/user/generated_colors_classes.scss
+        sassc "$HOME"/.cache/ags/user/generated/material_colors.scss "$HOME"/.cache/ags/user/generated/colors_classes.scss --style compact
+        sed -i "s/ { color//g" "$HOME"/.cache/ags/user/generated/colors_classes.scss
+        sed -i "s/\./$/g" "$HOME"/.cache/ags/user/generated/colors_classes.scss
+        sed -i "s/}//g" "$HOME"/.cache/ags/user/generated/colors_classes.scss
         if [ "$lightdark" = "-l" ]; then
-            printf "\n"'$darkmode: false;'"\n" >> /home/mallarb/.cache/ags/user/generated_colors_classes.scss
+            printf "\n""\$darkmode: false;""\n" >> "$HOME"/.cache/ags/user/generated/colors_classes.scss
         else
-            printf "\n"'$darkmode: true;'"\n" >> /home/mallarb/.cache/ags/user/generated_colors_classes.scss
+            printf "\n""\$darkmode: true;""\n" >> "$HOME"/.cache/ags/user/generated/colors_classes.scss
         fi
 
-        cp /home/mallarb/.cache/ags/user/generated_colors_classes.scss "/home/mallarb/.config/ags/scss/_material.scss"
+        cp "$HOME"/.cache/ags/user/generated/colors_classes.scss "$HOME/.config/ags/scss/_material.scss"
 
         color_generation/applycolor.sh
     fi

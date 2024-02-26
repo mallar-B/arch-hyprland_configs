@@ -26,13 +26,6 @@
     }
 }
 
-tooltip {
-    animation-name: appear;
-    animation-duration: 100ms;
-    animation-timing-function: ease-out;
-    animation-iteration-count: 1;
-}
-
 menu {
     @include elevation-border-softer;
     padding: 0.681rem;
@@ -67,12 +60,66 @@ menu>menuitem:focus {
     background-color: mix($surfaceVariant, $onSurfaceVariant, 90%);
 }
 
+menu>menuitem:active {
+    background-color: mix($surfaceVariant, $onSurfaceVariant, 80%);
+}
+
+radio {
+    @include full-rounding;
+    margin: 0.273rem;
+    min-width: 15px;
+    min-height: 15px;
+    border: 0.068rem solid $outline;
+}
+
+// radio:first-child {
+//     background-color: red;
+// }
+
+radio:checked {
+    min-width: 8px;
+    min-height: 8px;
+    background-color: $onPrimary;
+    border: 0.477rem solid $primary;
+}
+
 tooltip {
+    animation-name: appear;
+    animation-duration: 100ms;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
     @include normal-rounding;
     background-color: $surfaceVariant;
     color: $onSurfaceVariant;
     border: 1px solid $onSurfaceVariant;
 }
+
+/////////////////////////////////////////
+// Emoji Chooser structure
+// popover
+// ├── box.emoji-searchbar
+// │   ╰── entry.search
+// ╰── box.emoji-toolbar
+//     ├── button.image-button.emoji-section
+//     ├── ...
+//     ╰── button.image-button.emoji-section
+
+popover {
+    @include elevation-border-softer;
+    padding: 0.681rem;
+    background: $surfaceVariant;
+    color: $onSurfaceVariant;
+    border-radius: 1.159rem;
+    -gtk-outline-radius: 1.159rem;
+
+    animation-name: appear;
+    animation-duration: 40ms;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+}
+
+
+/////////////////////////////////////////
 
 .configtoggle-box {
     padding: 0.205rem 0.341rem;
@@ -84,7 +131,7 @@ tooltip {
 }
 
 .switch-bg {
-    @include menu_decel;
+    @include element_decel;
     @include full-rounding;
     background-color: mix($surface, $background, 50%);
     border: 0.136rem solid $onSurface;
@@ -148,18 +195,17 @@ tooltip {
 
 .segment-btn:focus,
 .segment-btn:hover {
-    background-color: $surfaceVariant;
-    color: $onSurfaceVariant;
+    background-color: $hovercolor;
 }
 
 .segment-btn-enabled {
-    background-color: $secondaryContainer; 
+    background-color: $secondaryContainer;
     color: $onSecondaryContainer;
 }
 
 .segment-btn-enabled:hover,
 .segment-btn-enabled:focus {
-    background-color: $secondaryContainer; 
+    background-color: $secondaryContainer;
     color: $onSecondaryContainer;
 }
 
